@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+    body{
+        background-color: #dbfff3;
+    }
     #content .authorize_options li {
         float: left;
         list-style-type: none;

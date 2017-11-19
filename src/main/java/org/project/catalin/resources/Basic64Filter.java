@@ -10,6 +10,7 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
@@ -42,16 +43,20 @@ public class Basic64Filter implements ContainerRequestFilter {
                 String user = tokenizer.nextToken();
                 String pass = tokenizer.nextToken();
 
-                if (validateDB(user, pass)) {
-                    setUserAuthorised(true);
-                    return;
+                try {
+                    if (validateDB(user, pass)) {
+                        setUserAuthorised(true);
+                        return;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             setUserAuthorised(false);
         }
     }
 
-    public boolean validateDB(String user, String pass) {
+    public boolean validateDB(String user, String pass) throws SQLException {
         Optional<String> database = Optional.empty();
         try {
             ConfigHandler configHandler = new ConfigHandler();

@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import java.io.IOException;
@@ -21,16 +22,14 @@ public class DemoApp {
 
 
     @GET
-    public String getCredentialsForm() {
-        try {
-            request.getRequestDispatcher("/DemoApp.jsp")
-                    .forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void getCredentialsForm() throws ServletException, IOException {
+        request.getRequestDispatcher("/DemoApp.jsp")
+                .forward(request, response);
+    }
 
-        return "da";
+    @POST
+    public void getCallback() throws ServletException, IOException {
+        request.getRequestDispatcher("/DemoAppSucces.jsp")
+                .forward(request, response);
     }
 }

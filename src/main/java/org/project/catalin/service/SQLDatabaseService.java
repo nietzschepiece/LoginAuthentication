@@ -15,7 +15,8 @@ public class SQLDatabaseService implements ServletContextListener {
     private static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/firstdb?useSSL=false", "root", "root");
+            if (con == null)
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/firstdb?useSSL=false", "root", "root");
             System.out.println("SQL ... Connected");
         } catch (Exception e) {
             e.printStackTrace();
@@ -23,15 +24,21 @@ public class SQLDatabaseService implements ServletContextListener {
         return con;
     }
 
-    public static boolean validateLogin(String user, String pass) {
-        try {
-            Statement statement = getConnection().createStatement();
-            ResultSet rs = statement.executeQuery("select * from Credentials");
-            while (rs.next()) {
-                if (rs.getString("user").equals(user) && rs.getString("password").equals(pass)) return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static boolean validateLogin(String user, String pass) throws SQLException {
+        Statement statement = getConnection().createStatement();
+        ResultSet rs = statement.executeQuery("select * from Credentials");
+        while (rs.next()) {
+            if (rs.getString("user").equals(user) && rs.getString("password").equals(pass)) return true;
+        }
+
+        return false;
+    }
+
+    public static boolean verifyClientIdentity(String clientId) throws SQLException {
+        Statement statement = getConnection().createStatement();
+        ResultSet rs = statement.executeQuery("select * from RegisteredClients");
+        while (rs.next()) {
+            if (rs.getString("clientID").equals(clientId)) return true;
         }
         return false;
     }

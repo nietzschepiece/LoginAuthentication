@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <style>
+
+    body{
+        background-color: #dbfff3;
+    }
     input[type=text], input[type=password] {
         width: 100%;
         padding: 12px 20px;
@@ -44,6 +48,7 @@
         <input type="password" placeholder="Enter Password" id="pass" required>
 
         <button type="button" id="loginButton" >Login</button>
+        <h4>Third party application login process</h4>
     </div>
 </form>
 

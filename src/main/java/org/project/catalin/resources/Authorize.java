@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,12 +28,12 @@ public class Authorize {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Authorization getAuthorizationCode() throws URISyntaxException {
+    public Response getAuthorizationCode() throws URISyntaxException {
         Authorization authCode = new Authorization();
         authCode.setCode("AUTHORIZATION_CODE");
-        URI uri = new URI("/authorize.jsp");
+        URI uri = new URI(clientDetails.getRedirectUri() + "&code=" + authCode.getCode());
 
-        return authCode;
+        return Response.temporaryRedirect(uri).build();
     }
 
     @GET

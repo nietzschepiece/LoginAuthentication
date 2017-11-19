@@ -19,6 +19,7 @@ public class TokenResource {
                              @QueryParam("authorization_code") String authCode){
 
 
+        //RESPONSE ; acces_token, token_type, expires_in, refresh_token:
 
          return Response.ok().entity("token").build();
     }

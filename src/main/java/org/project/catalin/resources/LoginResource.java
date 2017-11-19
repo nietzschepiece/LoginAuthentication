@@ -2,6 +2,8 @@ package org.project.catalin.resources;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
 import org.project.catalin.model.ClientDetails;
+import org.project.catalin.service.MongoDatabaseService;
+import org.project.catalin.service.SQLDatabaseService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import static org.project.catalin.resources.Basic64Filter.isUserAuthorised;
 
@@ -50,7 +54,11 @@ public class LoginResource {
     @GET
     public void getLoginPage(@QueryParam("client_id") String clientId,
                              @QueryParam("redirect_uri") String redirectUri,
-                             @QueryParam("scope") String scope) throws ServletException, IOException {
+                             @QueryParam("scope") String scope) throws ServletException, IOException, SQLException {
+
+        if(SQLDatabaseService.verifyClientIdentity(clientId))
+            System.out.println("Client Identity recognised");
+
         setClientDetails(clientId, redirectUri);
 
         request.getRequestDispatcher("/login.jsp")
