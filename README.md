@@ -12,6 +12,8 @@ Authorization Server consumes :
 - response_type
 - scope = Level of access (ex: read/write)
 
+Switch mySQL Database / MongoDB Database with ConfigHadler.class
+
 ### Endpoints (JAX-RS)
 
 - **[<code>GET</code> authorize]**
@@ -21,7 +23,7 @@ Authorization Server consumes :
 
 ### Technologies / Frameworks: 
 
-Java, JAX-RS, Jersey, JSP, JSWTL, JSON, Maven
+Java, JAX-RS, Jersey, JSP, JSWTL, JSON, Maven, SQL, noSQL
 
 
 
