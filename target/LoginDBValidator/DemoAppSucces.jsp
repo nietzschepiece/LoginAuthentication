@@ -53,7 +53,7 @@
         <div id="text">
             <h3>Login succesful!</h3>
             <h3>You have been redirected to the client application </h3>
-            <h4>This is your authorization_code = <span style="color:red">><%= request.getParameter("code") %></span></h4>
+            <h4>This is your authorization_code = <span style="color:red"><%= request.getParameter("code") %></span></h4>
         </div>
     </form>
 </div>
